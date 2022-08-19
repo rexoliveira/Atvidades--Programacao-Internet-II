@@ -1,0 +1,19 @@
+{
+    "name": "project/loadingpage",
+    "description": "Projeto atividade de aula Internet2",
+    "type": "project",
+    "license": "MIT License",
+    "autoload": {
+        "psr-4": {
+            "Project\\Loadingpage\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "rexoliveira",
+            "email": "roolivei@yahoo.com.br"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
