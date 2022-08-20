@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Requisições Assíncronas - Aula 2</title>
+</head>
+
+<body>
+	<form action="">
+	<select name="customers" onchange="showCustomer(this.value)">
+		<option value="">Select a customer:</option>
+		<option value="Ana">Ana Claudia</option>
+		<option value="Pedro">Pedro Alves</option>
+		<option value="Renato">Renato Peralta</option>
+	</select>
+	</form>
+	<br>
+	<div> <button onclick="buscarJsonOrXML(1)">Busca XML</button> </div>
+	<div> <button onclick="buscarJsonOrXML(2)">Busca Json</button> </div>
+	<div id="conteudo"></div>
+
+	<script>
+		// recebe um html montado pelo server
+		function showCustomer(value) {
+			let ajax = new XMLHttpRequest();
+			ajax.onload = function () {
+				document.getElementById('conteudo').innerHTML = ajax.responseText;
+			}
+			ajax.open("GET", "getcustomer.php?q=" + value);
+			console.log(value);
+			ajax.send();
+		}
+
+		// recebe um xml (param = 1) ou json (param = 2). Não extrai nada dos arquivos, apenas mostra ao usuario
+		function buscarJsonOrXML(param) {
+			let ajax = new XMLHttpRequest();
+			ajax.onload = function () {
+				document.getElementById('conteudo').innerHTML = ajax.responseText;
+			}
+			ajax.open('GET', 'generateXMLOrJson.php?param=' + param);
+			ajax.send();
+		}
+	</script>
+</body>
+
+</html>

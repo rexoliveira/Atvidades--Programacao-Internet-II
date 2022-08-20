@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<users>
+  <user>
+    <customerid>Paulo</customerid>
+    <companyname>Pasqualloto</companyname>
+    <email>paulo@gmail.com</email>
+    <address>Rua Y</address>
+    <city>Juina</city>
+    <postalcode>987654-321</postalcode>
+    <country>Brasil</country>
+  </user>
+  <user>
+    <customerid>Renato</customerid>
+    <companyname>IFSUL</companyname>
+    <email>re@gmail.com</email>
+    <address>Rua X</address>
+    <city>Porto Alegre</city>
+    <postalcode>123456-789</postalcode>
+    <country>Brazil</country>
+  </user>
+  <user>
+    <customerid>WOLZA</customerid>
+    <companyname>jbs</companyname>
+    <email>fulano@hotmail</email>
+    <address>rua tal</address>
+    <city>camaquã</city>
+    <postalcode>15156-522</postalcode>
+    <country>Brazil</country>
+  </user>
+</users>

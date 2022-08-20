@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Requisições Assíncronas - Aula 2</title>
+  </head>
+
+  <body>
+    <br />
+
+    <div><button onclick="buscarJson()">Busca Json</button></div>
+    <div id="conteudo"></div>
+
+    <script>
+      function buscarJson() {
+        let ajax = new XMLHttpRequest();
+        ajax.onload = function () {
+          let usuarios = JSON.parse(ajax.responseText);
+
+		  let caras ="";
+          for (let u = 0; u < usuarios["users"].length; u++) {
+
+            caras += "<p>customerid:" + usuarios["users"][u].customerid + "</p><br>";
+            caras += "<p>companyname:" + usuarios["users"][u].companyname + "</p><br>";
+            caras += "<p>email:" + usuarios["users"][u].email + "</p><br>";
+            caras += "<p>address:" + usuarios["users"][u].address + "</p><br>";
+            caras += "<p>city:" + usuarios["users"][u].city + "</p><br>";
+            caras += "<p>postalcode:" + usuarios["users"][u].postalcode + "</p><br>";
+            caras += "<p>country:" + usuarios["users"][u].country + "</p><br>";
+
+		}
+		document.getElementById("conteudo").innerHTML = caras;
+        };
+        ajax.open("GET", "arquivos/data.json");
+        ajax.send();
+      }
+    </script>
+  </body>
+</html>
