@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requisições Assíncronas - Aula 2</title>
+</head>
+<body>
+
+    <form action=""> 
+        <select name="customers" onchange="showCustomer(this.value)">
+          <option value="">Select a customer:</option>
+          <option value="Ana">Ana Claudia</option>
+          <option value="Pedro">Pedro Alves</option>
+          <option value="Renato">Renato Peralta</option>
+        </select>
+      </form>
+      <br>
+      <div> <button onclick="buscarJsonOrXML(1)">Busca XML</button> </div>
+      <div> <button onclick="buscarJsonOrXML(2)">Busca Json</button> </div>
+      <div> <button onclick="postAjax()">Post</button> </div>
+      <div> <button onclick="sendJson()">Post Json</button> </div>
+      <div id="txtHint">Customer info will be listed here...</div>
+      <div id="demo"></div>
+
+      <script>
+
+ 
+        let myObj = {
+          nome : "Renato",
+          idade : "27",
+          sexo : "M"
+        }
+        let myJson = JSON.stringify(myObj)
+        console.log(myJson)
+
+
+
+
+        function showCustomer(value){
+          let ajax = new XMLHttpRequest();
+          
+          ajax.onload = function () {
+              document.getElementById('txtHint').innerHTML = ajax.responseText;
+          }
+          ajax.open("GET", "getcustomer.php?q=" + value);
+          console.log(value);
+          ajax.send();
+        }
+
+        function buscarJsonOrXML(param){
+          let ajax = new XMLHttpRequest();
+          ajax.onload = function () {
+            let result = undefined;
+            if( param == 1 )
+                result = ajax.responseText;
+            else{
+              console.log(ajax.responseText);
+              let usuarios = JSON.parse(ajax.responseText);  
+              console.log(usuarios);  
+              console.log(usuarios.users[0].email);
+              // let nomes = "";
+              // for (let index = 0; index < usuarios['users'].length; index++) {
+              //   nomes += " " + usuarios['users'][index].customerid + "</br>";
+              // //   // nomes += " " + usuarios['users'][index]['customerid'];
+              // //   // nomes += " " + usuarios.users[index].customerid;
+              // }
+             
+              // result = nomes;
+            }
+            // document.getElementById('txtHint').innerHTML = result;
+          }
+          ajax.open('GET', 'generateXMLOrJson.php?param=' + param);
+          ajax.send();
+        }
+
+        function postAjax(  ){
+          var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance ;
+          xmlhttp.onload = function(){
+            document.getElementById('demo').innerHTML = xmlhttp.responseText;
+          }
+          xmlhttp.open("POST", "http://localhost/aulas/aula-08-12/testePost.php");
+          xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+          xmlhttp.send("param=2");
+        }
+
+        function sendJson(){
+          var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance ;
+          xmlhttp.onload = function(){
+            document.getElementById('demo').innerHTML = xmlhttp.responseText;
+          }
+          xmlhttp.open("POST", "http://localhost/aulas/aula-08-12/testePost.php");
+          xmlhttp.setRequestHeader("Content-Type", "application/json");
+          const obj = [{name:"John Rambo", time:"2pm"}, {name:"Silvestre", time:"3pm"}];
+          myJSON = JSON.stringify(obj);
+          xmlhttp.send(myJSON);
+        }
+
+        function listarCDs(){
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (xhttp.readyState == 4) {
+                    const xmlDoc = xhttp.responseXML;
+                    let x = xmlDoc.getElementsByTagName("CD");
+
+                    var txt = "<br><table  border='1'>";
+                    txt += "<tr><td>Artista</td><td>Disco</td></tr>";
+       
+                    for (let i = 0; i < x.length; i++){
+                        txt += ("<tr><td>");
+                        txt += (x[i].getElementsByTagName("ARTIST")[0].childNodes[0].nodeValue);
+                        txt += ("</td><td>");
+                        txt += (x[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue);
+                        txt += ("</td></tr>");
+                    }
+                    txt += ("</table>");
+                    document.getElementById("conteudo").innerHTML = txt;
+                }
+            }
+            xhttp.open("GET", "http://localhost/aulas/aula_05_08/files/catalago.xml");
+            xhttp.send();
+        }        
+
+      </script>
+</body>
+</html>

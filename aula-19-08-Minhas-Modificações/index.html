@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Desabilita o cache da página -->
+    <meta content="-" http-equiv="cache-control" no-cache />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Requisições Assíncronas - Aula 2</title>
+
+    <style>
+      body {
+        margin: 0;
+        border: border-box;
+        padding: 1rem;
+        background-color: #000000a9;
+        color: #fafafa;
+      }
+      hr {
+        background: greenyellow;
+      }
+      button {
+        border: none;
+        background-color: #fafafa;
+        font-size: 1rem;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 600;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <br />
+
+    <div><button onclick="buscarJson()">Post Json</button></div>
+
+    <div id="demo"></div>
+    <script>
+      //Função chama o json externo
+      function buscarJson() {
+       
+        let ajax = new XMLHttpRequest(Cache,false);
+        
+        ajax.onload = function () {
+          //O parse torna o Json em objeto
+          //Objeto não aspas na CHAVE somente no VALUE ao contrário do Json
+          let usuarios = JSON.parse(ajax.responseText);
+          //Chama a função "sendJson" passando por parametro os usuario parseados em forma de OBJETOS
+          sendJson(usuarios);
+        };
+      
+        ajax.open("GET", "dados.json");
+        ajax.send();
+      }
+
+      //Função envido OBJETO
+      function sendJson(dados) {
+        var xmlhttp = new XMLHttpRequest(); // new HttpRequest instance ;
+        xmlhttp.onload = function () {
+          //Recebe os dados vindos do aqruivo entrada-post.php
+          document.getElementById("demo").innerHTML = xmlhttp.responseText;
+        };
+
+        //Tipo POST que envia dados para o arquivo ./entrada-post.php
+        xmlhttp.open("POST", "./entrada-post.php");
+        //Cabeçalho que define tipo de arquivo a ser enviado que é json
+        xmlhttp.setRequestHeader("Content-Type", "application/json");
+
+        // OBJETO
+        //Objeto não aspas na CHAVE somente no VALUE ao contrário do Json
+        //Nâo está mais sendo usado
+        /* const obj = [
+          { nome: "John Rambo", time: "2pm" },
+          { nome: "Silvestre", time: "3pm" },
+        ]; */
+
+        //Pega o arquivo Json que esta dentro da variavel OBJ e transforma em uma String
+        myJSON = JSON.stringify(dados);
+
+        //Envia essa String para o arquivo ./entrada-post.php
+        xmlhttp.send(myJSON);
+        
+      }
+    </script>
+  </body>
+</html>

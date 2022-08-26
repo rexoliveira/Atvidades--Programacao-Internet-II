@@ -1,0 +1,62 @@
+<root>
+    <nome> João </nome>
+</root>
+
+<note>
+  <to>Tove</to>
+  <from>Jani</from>
+  <heading>Reminder</heading>
+  <body>Don't forget me this weekend!</body>
+</note>
+
+
+<breakfast_menu>
+    <food>
+        <name>Café</name>
+        <price>$5.95</price>
+        <description>
+        alguma descrição
+        </description>
+        <calories>650</calories>
+    </food>
+    <food>
+        <name>Pão francês</name>
+        <price>$7.95</price>
+        <description>
+        outra descrição
+        </description>
+        <calories>900</calories>
+    </food>
+</breakfast_menu>
+
+
+<aviso>
+    <data>
+        <dia>12</dia>
+        <mês>11</mês>
+        <ano>99</ano>
+    </data>
+    <para>Janice</para>
+    <de>Jefferson</de>
+    <cabecalho>Lembre-se</cabecalho>
+    <corpo>Amanha voce tem prova de matematica</corpo>
+</aviso> 
+
+<boletim>
+    <aluno>
+        <nome>JANICE</nome>
+        <notas>
+            <portugues>7</portugues>
+            <matematica>8</matematica>
+            <ciencias>6</ciencias>
+        </notas>
+    </aluno>
+    <aluno>
+        <nome>JEFFERSON</nome>
+        <notas>
+            <portugues>5</portugues>
+            <matematica>8</matematica>
+            <ciencias>7</ciencias>
+        </notas>
+    </aluno>
+</boletim>
