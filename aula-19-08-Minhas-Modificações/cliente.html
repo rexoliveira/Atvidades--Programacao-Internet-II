@@ -50,7 +50,7 @@
           sendJson(usuarios);
         };
       
-        ajax.open("GET", "dados.json");
+        ajax.open("GET", "jsonCliente.json");
         ajax.send();
       }
 
@@ -58,12 +58,12 @@
       function sendJson(dados) {
         var xmlhttp = new XMLHttpRequest(); // new HttpRequest instance ;
         xmlhttp.onload = function () {
-          //Recebe os dados vindos do aqruivo entrada-post.php
+          //Recebe os dados vindos do aqruivo servidor.php
           document.getElementById("demo").innerHTML = xmlhttp.responseText;
         };
 
-        //Tipo POST que envia dados para o arquivo ./entrada-post.php
-        xmlhttp.open("POST", "./entrada-post.php");
+        //Tipo POST que envia dados para o arquivo ./servidor.php
+        xmlhttp.open("POST", "./servidor.php");
         //Cabeçalho que define tipo de arquivo a ser enviado que é json
         xmlhttp.setRequestHeader("Content-Type", "application/json");
 
@@ -78,7 +78,7 @@
         //Pega o arquivo Json que esta dentro da variavel OBJ e transforma em uma String
         myJSON = JSON.stringify(dados);
 
-        //Envia essa String para o arquivo ./entrada-post.php
+        //Envia essa String para o arquivo ./servidor.php
         xmlhttp.send(myJSON);
         
       }
