@@ -9,22 +9,25 @@ $myArray = json_decode($conteudo, true);
 //Cria um arquivo html e devolve para index colocar na DIV "demo"
 $users = [];
 
+//Constroi um array e com USERS
 for ($i = 0; $i < count($myArray); $i++) {
     $user = array(
         "nome" => $myArray[$i]['nome'],
         "telefone" => $myArray[$i]['telefone'],
         "email" => $myArray[$i]['email'],
         "endereco" => $myArray[$i]['endereco'],
-        "compania" => $myArray[$i]['companhia'],
+        "companhia" => $myArray[$i]['companhia'],
     );
     $users['users'][$i] = $user;
 }
+//Trasnforma em JSON
 $json = json_encode($users);
-//file_put_contents("jsonServidor.json", $json); 
+//Grava em arquivo JSON
+file_put_contents("../json/jsonServidor.json", $json); 
 echo $json;
-echo "<br>";
 
-//Primeira forma de dar saída
+
+//Primeira implementação desaída
 /* for ($i = 0; $i < count($myArray); $i++) {
  
  echo("<hr><hr>");
