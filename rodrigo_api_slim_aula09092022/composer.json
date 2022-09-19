@@ -1,0 +1,21 @@
+{
+    "name": "rooli/rodrigo_api_slim",
+    "description": "teste_slim",
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/"
+        }
+    },
+    "require": {
+        "slim/slim": "^4.10.0",
+        "slim/psr7": "^1.5"
+    },
+    "license": "PHP License",
+    "authors": [
+        {
+            "name": "rexoliveira",
+            "email": "roolivei@yahoo.com.br"
+        }
+    ],
+    "minimum-stability": "stable"
+}
