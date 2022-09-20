@@ -122,14 +122,14 @@ return function (App $app) {
 
 
 
-     $app->group('/users', function (Group $group) {
+     /* $app->group('/users', function (Group $group) {
      $group->get('', ListUsersAction::class);
      $group->get('/{id}', ViewUserAction::class);
      });
      $app->group('/livros', function (Group $group) {
      $group->get('', ListLivrosAction::class);
      // $group->get('/{id}', ViewUserAction::class);
-     });
+     }); */
 
 
     };
