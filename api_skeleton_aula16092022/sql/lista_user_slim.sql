@@ -1,0 +1,22 @@
+INSERT INTO slimteste (nome,sobrenome)
+VALUES
+  ('Abel','Mcgowan'),
+  ('Tyrone','Stout'),
+  ('Arden','Chambers'),
+  ('Nayda','Benjamin'),
+  ('Christen','Rodriguez'),
+  ('Denise','Meadows'),
+  ('Cedric','Moses'),
+  ('Warren','Pennington'),
+  ('Galvin','Whitney'),
+  ('Ivory','Zamora'),
+  ('Hector','Alvarado'),
+  ('Alexandra','Booth'),
+  ('Acton','Jennings'),
+  ('Lavinia','Mays'),
+  ('Cameran','Britt'),
+  ('Shaine','Sampson'),
+  ('Mollie','Potter'),
+  ('Donovan','Carpenter'),
+  ('Amir','Ray'),
+  ('Thaddeus','Sutton');
