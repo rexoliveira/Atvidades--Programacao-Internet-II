@@ -9,6 +9,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
+use function PHPUnit\Framework\isEmpty;
 
 return function (App $app) {
     $app->options('/{routes:.*}', function (Request $request, Response $response) {
@@ -87,7 +88,7 @@ return function (App $app) {
         }
         );
 
-        $app->get('/user/delete/{id}', function (Request $request, Response $response, array $args) {
+        $app->delete('/user/delete/{id}', function (Request $request, Response $response, array $args) {
             $pdo = $this->get('bd');
             $result = $pdo->prepare("SELECT * FROM slimteste WHERE id = " . $args['id']);
             $result->execute();
@@ -118,6 +119,131 @@ return function (App $app) {
         }
         );
 
+        //Passando por formulario
+        /**
+         * TESTAR NO "POSTMAN" NO "BODY" TIPO "FORM/DATA"(PASSANDO POR FORMULARIO)
+         */
+        $app->post('/user/add', function(Request $request, Response $response){
+            
+            //Pega os argumentos enviados pelo formulario- "form/data"
+            //Cast para tipo ARRAY
+            $inputForm = (array)$request->getParsedBody();
+
+
+            //Verifica se os campos estão presentes
+            $nome= isset($inputForm['nome'])? $inputForm['nome']:"";
+            $sobrenome= isset($inputForm['sobrenome'])? $inputForm['sobrenome']:"";
+
+            
+            if($nome != "" && $sobrenome != ""){
+
+                $pdo = $this->get('bd');
+                $result = $pdo->prepare("INSERT INTO public.slimteste(nome, sobrenome)VALUES (:nome, :sobrenome)");
+                $result->bindParam(':nome', $nome, PDO::PARAM_STR);
+                $result->bindParam(':sobrenome', $sobrenome, PDO::PARAM_STR);
+                $result->execute();
+
+                $id = $pdo->lastInsertId();
+
+
+
+                //Listar após inserir
+                $result = $pdo->prepare("SELECT * FROM slimteste WHERE id = :id");
+                $result->bindParam(':id', $id, PDO::PARAM_STR);
+                $result->execute();
+
+                $row = $result->fetch(PDO::FETCH_ASSOC);
+            
+                if ($id) {
+                    //Imprime o resultado usuario criado
+                    $body = "Usuário criado!\n";
+                    $body .= "ID: $id\n";
+                    $body .= "Nome: ". $row['nome']."\n";
+                    $body .= "Sobrenome: ". $row['sobrenome']."\n";
+                } else {
+                    $body = "Erro ao criar o usuário\n";
+                }
+            //ESCREVE NO CORPO E RETORNA
+            $response->getBody()->write($body);
+
+            return $response->withStatus(201);
+            
+            }else{
+                $body='Sem o campo "NOME" ou "SOBRENOME ou valores vazios" ';
+                //ESCREVE NO CORPO E RETORNA
+                $response->getBody()->write($body);
+        
+                return $response->withStatus(500);
+            };
+
+        });
+
+        //Passando por formulario
+        /**
+         * TESTAR NO "POSTMAN" NO "BODY" TIPO "FORM/DATA"(PASSANDO POR FORMULARIO)
+         */
+        $app->post('/user/update', function(Request $request, Response $response){
+            
+            //Pega os argumentos enviados pelo formulario- "form/data"
+            //Cast para tipo ARRAY
+            $inputForm = (array)$request->getParsedBody();
+
+
+            //Verifica se os campos estão presentes
+            $id= isset($inputForm['id'])?$inputForm['id']:"";
+            $nome= isset($inputForm['nome'])? $inputForm['nome']:"";
+            $sobrenome= isset($inputForm['sobrenome'])? $inputForm['sobrenome']:"";
+            
+            $body = "";
+                $pdo = $this->get('bd');    
+                $result = $pdo->prepare("SELECT * FROM slimteste ORDER BY nome");
+                $result->execute();
+
+                while($row = $result->fetch(PDO::FETCH_ASSOC)){
+                //Imprime o resultado usuario criado
+
+                    $body .= "ID: ". $row['id'];
+                    $body .= "======================================\n";
+                    $body .= "Nome: ". $row['nome']."\n";
+                    $body .= "Sobrenome: ". $row['sobrenome']."\n\n";}
+                
+            
+            if($id != ""){
+
+                $pdo = $this->get('bd');
+                $result = $pdo->prepare("UPDATE slimteste SET nome= :nome,sobrenome= :sobrenome WHERE id= :id ");
+                $result->bindParam(':id', $id);
+                $result->bindParam(':nome', $nome, PDO::PARAM_STR);
+                $result->bindParam(':sobrenome', $sobrenome, PDO::PARAM_STR);
+                $result->execute();
+
+                //Listar após inserir
+                $result = $pdo->prepare("SELECT * FROM slimteste WHERE id = :id");
+                $result->bindParam(':id', $id, PDO::PARAM_STR);
+                $result->execute();
+
+                $row = $result->fetch(PDO::FETCH_ASSOC);
+                            
+                    //Imprime o resultado usuario criado
+                    $body = "Atualizar Usuario!\n";
+                    $body .= "ID: $id\n";
+                    $body .= "Nome: ". $row['nome']."\n";
+                    $body .= "Sobrenome: ". $row['sobrenome']."\n";
+               
+            //ESCREVE NO CORPO E RETORNA
+            $response->getBody()->write($body);
+
+            return $response->withStatus(201);
+            
+            }else{
+                $body.='Sem o campo "ID" ou valor vazio" ';
+                //ESCREVE NO CORPO E RETORNA
+                $response->getBody()->write($body);
+        
+                return $response->withStatus(500);
+            };
+
+        });
 
 
 
