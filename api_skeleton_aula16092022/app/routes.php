@@ -5,6 +5,8 @@ use App\Application\Actions\Livro\ListLivrosAction;
 
 use App\Application\Actions\User\ListUsersAction;
 use App\Application\Actions\User\ViewUserAction;
+use App\Application\Actions\Cliente\ListClientesAction;
+use App\Application\Actions\Cliente\ViewClienteAction;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
@@ -248,14 +250,18 @@ return function (App $app) {
 
 
 
-     /* $app->group('/users', function (Group $group) {
+     $app->group('/users', function (Group $group) {
      $group->get('', ListUsersAction::class);
      $group->get('/{id}', ViewUserAction::class);
      });
      $app->group('/livros', function (Group $group) {
-     $group->get('', ListLivrosAction::class);
-     // $group->get('/{id}', ViewUserAction::class);
-     }); */
-
+         $group->get('', ListLivrosAction::class);
+         // $group->get('/{id}', ViewUserAction::class);
+        });
+        
+         $app->group('/clientes', function (Group $group) {
+        $group->get('', ListClientesAction::class);
+        $group->get('/{id}', ViewClienteAction::class);
+        });
 
     };
