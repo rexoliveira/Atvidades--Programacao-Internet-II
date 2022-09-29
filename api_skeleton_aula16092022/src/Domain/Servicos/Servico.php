@@ -1,24 +1,24 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Domain\cliente;
+namespace App\Domain\servico;
 
 use JsonSerializable;
 
-class cliente implements JsonSerializable
+class servico implements JsonSerializable
 {
     private ?int $id;
 
-    private string $clientename;
+    private string $servicoNome;
 
     private string $firstName;
 
     private string $lastName;
 
-    public function __construct(?int $id, string $clientename, string $firstName, string $lastName)
+    public function __construct(?int $id, string $servicoNome, string $firstName, string $lastName)
     {
         $this->id = $id;
-        $this->clientename = strtolower($clientename);
+        $this->servicoNome = strtolower($servicoNome);
         $this->firstName = ucfirst($firstName);
         $this->lastName = ucfirst($lastName);
     }
@@ -28,9 +28,9 @@ class cliente implements JsonSerializable
         return $this->id;
     }
 
-    public function getclientename(): string
+    public function getservicoNome(): string
     {
-        return $this->clientename;
+        return $this->servicoNome;
     }
 
     public function getFirstName(): string
@@ -48,7 +48,7 @@ class cliente implements JsonSerializable
     {
         return [
             'id' => $this->id,
-            'clientename' => $this->clientename,
+            'servicoNome' => $this->servicoNome,
             'firstName' => $this->firstName,
             'lastName' => $this->lastName,
         ];
