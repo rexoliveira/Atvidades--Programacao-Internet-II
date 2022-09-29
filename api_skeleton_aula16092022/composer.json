@@ -42,10 +42,7 @@
         "sort-packages": true,
         "allow-plugins": {
             "phpstan/extension-installer": true
-        },
-        "scripts": {
-          "start": "php -S localhost:8080 -t public/"
-        }
+        }      
 
     },
     "autoload": {
